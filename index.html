@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
+                
+    <link rel="stylesheet" href="index.css">
+    <title>Pokedex API</title>
+</head>
+<body>
+    <section id="pokedex">
+        <h1>Pokédex</h1>
+        <div class="recherche">
+            <input type="text" id="search" placeholder="Attrape ton pokémon !">
+        </div>
+        <div id="pagination">
+            <span id="page-info"></span>
+            <input type="number" id="page-input" min="1" value="1">
+            <button id="go-to-page">Go !</button>
+        </div>
+        <div class="pokemon">
+            <button id="prev-page"><img src="./images/prev-icon.svg" alt=""></button>
+            <div class="pokemon-block-list">
+                <div id="filters">
+                    <!-- Ajoutez ici les éléments pour les filtres -->
+                </div>
+                <div id="pokemon-list">
+                    <!-- La liste des Pokémon sera générée ici -->
+                </div>
+            </div>
+            <button id="next-page"><img src="./images/next-icon.svg" alt=""></button>
+        </div>
+    </section>
+    <script src="index.js"></script>
+</body>
+    </html>
