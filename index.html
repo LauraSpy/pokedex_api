@@ -13,15 +13,15 @@
     <section id="pokedex">
         <h1>Pokédex</h1>
         <div class="recherche">
-            <input type="text" id="search" placeholder="Attrape ton pokémon !">
+            <input type="text" id="search" placeholder="Retrouve ton pokémon !">
         </div>
         <div id="pagination">
             <span id="page-info"></span>
             <input type="number" id="page-input" min="1" value="1">
             <button id="go-to-page">Go !</button>
         </div>
+        <button id="prev-page"><img src="./images/prev-icon.svg" alt=""></button>
         <div class="pokemon">
-            <button id="prev-page"><img src="./images/prev-icon.svg" alt=""></button>
             <div class="pokemon-block-list">
                 <div id="filters">
                     <!-- Ajoutez ici les éléments pour les filtres -->
@@ -30,8 +30,8 @@
                     <!-- La liste des Pokémon sera générée ici -->
                 </div>
             </div>
-            <button id="next-page"><img src="./images/next-icon.svg" alt=""></button>
         </div>
+        <button id="next-page"><img src="./images/next-icon.svg" alt=""></button>
     </section>
     <script src="index.js"></script>
 </body>

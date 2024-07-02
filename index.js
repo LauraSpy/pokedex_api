@@ -32,17 +32,48 @@ function displayPokemon(pokemonList) {
     paginatedPokemon.forEach(pokemon => {
         const pokemonElement = document.createElement('div');
         pokemonElement.className = 'pokemon-card'; // Ajoutez cette ligne
+
+        // Récupérer les stats du Pokémon
+        const stats = pokemon.stats.reduce((acc, stat) => {
+            acc[stat.stat.name] = stat.base_stat;
+            return acc;
+        }, {});
+
+        // Convertir le poids de hectogrammes en kilogrammes
+        const weightInKg = pokemon.weight / 10;
+        // Convertir la taille de décimètres en mètres
+        const heightInM = pokemon.height / 10;
+        // toFixed(), utilisé par la suite, sert à limiter le nombre de décimales affichées (2 pour la taille, 1 pour le poids)
+        
         pokemonElement.innerHTML = `
             <div class="pokemon-title">
                 <span class="pokemon-level">
                     <p class="pokemon-number">Niveau ${pokemon.id}</p>
                     <h2 class="pokemon-name">${pokemon.name}</h2>
+                    <p class="pokemon-hp">pv <strong>${stats.hp}</strong></p>
                 </span>
                 <span class="pokemon-image">
                     <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
                 </span>
             </div>
-            <p class="pokemon-types">Type(s): ${pokemon.types.map(type => type.type.name).join(', ')}</p>
+            <div class="pokemon-info">
+                <div class="pokemon-types">
+                    <span>Type : ${pokemon.types.map(type => type.type.name).join(', ')}</span>
+                    <span class="pokemon-size">Taille: ${heightInM.toFixed(2)} m</span>
+                    <span class="pokemon-weight">Poids: ${weightInKg.toFixed(1)} kg</span>
+                </div>
+                <div class="pokemon-stats">
+                    <div class="pokemon-stats-attack">
+                        <p>Attack: ${stats.attack}</p>
+                        <p>Sp. Attack: ${stats['special-attack']}</p>
+                    </div>
+                    <div class="pokemon-stats-defense">
+                        <p>Defense: ${stats.defense}<p>
+                        <p>Sp. Defense: ${stats['special-defense']}</p>
+                    </div>
+                </div>
+                <p>Speed: ${stats.speed}</p>
+            </div>
         `;
         pokemonListElement.appendChild(pokemonElement);
     });
