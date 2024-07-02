@@ -47,8 +47,8 @@ function displayPokemon(pokemonList) {
         
         pokemonElement.innerHTML = `
             <div class="pokemon-title">
+                <p class="pokemon-number">Niveau ${pokemon.id}</p>
                 <span class="pokemon-level">
-                    <p class="pokemon-number">Niveau ${pokemon.id}</p>
                     <h2 class="pokemon-name">${pokemon.name}</h2>
                     <p class="pokemon-hp">pv <strong>${stats.hp}</strong></p>
                 </span>
@@ -71,8 +71,8 @@ function displayPokemon(pokemonList) {
                         <p>Defense: ${stats.defense}<p>
                         <p>Sp. Defense: ${stats['special-defense']}</p>
                     </div>
+                    <p class="pokemon-speed">Speed ${stats.speed}</p>
                 </div>
-                <p>Speed: ${stats.speed}</p>
             </div>
         `;
         pokemonListElement.appendChild(pokemonElement);
