@@ -169,6 +169,7 @@ body {
     justify-content: space-around;
     gap: 10px; /* Espace entre les cartes Pokémon */
     width: 60vw;
+    margin-bottom: 15%;
 }
 
 .pokemon-block-list {
