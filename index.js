@@ -16,6 +16,7 @@ async function fetchPokemon() {
         }));
         displayPokemon(allPokemon);
         setupPagination();
+        createTypeFilters(); // Ajoutez cette ligne
     } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
     }
@@ -133,32 +134,46 @@ document.getElementById('search').addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const filteredPokemon = allPokemon.filter(pokemon => 
         pokemon.name.toLowerCase().includes(searchTerm) || 
-        pokemon.id.toString().includes(searchTerm)
+        pokemon.id.toString().includes(searchTerm) ||
+        pokemon.types.some(type => type.type.name.toLowerCase().includes(searchTerm))
     );
     currentPage = 1; // Réinitialiser à la première page lors d'une recherche
     displayPokemon(filteredPokemon);
 });
 
 function createTypeFilters() {
-    const types = [...new Set(allPokemon.flatMap(pokemon => pokemon.types.map(type => type.type.name)))];
+    const types = ['all',...new Set(allPokemon.flatMap(pokemon => pokemon.types.map(type => type.type.name)))];
     const filtersElement = document.getElementById('filters');
+    filtersElement.innerHTML = ''; // Vider les filtres existants
+
+    // Créer un élément select
+    const select = document.createElement('select');
+    select.id = 'type-filter';
+
+
+    // Ajouter les options
     types.forEach(type => {
-        const button = document.createElement('button');
-        button.textContent = type;
-        button.addEventListener('click', () => filterByType(type));
-        filtersElement.appendChild(button);
+        const option = document.createElement('option');
+        option.value = type;
+        option.textContent = type === 'all' ? 'Tous les types' : type;
+        select.appendChild(option);
     });
+
+
+    // Ajouter un écouteur d'événements pour le changement de sélection
+    select.addEventListener('change', (e) => filterByType(e.target.value));
+
+    // Ajouter le select au conteneur de filtres
+    filtersElement.appendChild(select);
 }
 
 function filterByType(type) {
-    const filteredPokemon = allPokemon.filter(pokemon => 
-        pokemon.types.some(t => t.type.name === type)
-    );
+    const filteredPokemon = type === 'all' 
+        ? allPokemon 
+        : allPokemon.filter(pokemon => pokemon.types.some(t => t.type.name === type));
     currentPage = 1; // Réinitialiser à la première page lors d'un filtrage
     displayPokemon(filteredPokemon);
 }
-
-fetchPokemon();
 
 // IMPLEMENTATION DE LA RECHERCHE
 
@@ -173,15 +188,24 @@ document.getElementById('search').addEventListener('input', (e) => {
 
 // IMPLEMENTATION DES FILTRES
 
+
 function createTypeFilters() {
-    const types = [...new Set(allPokemon.flatMap(pokemon => pokemon.types.map(type => type.type.name)))];
+    const types = ['all', ...new Set(allPokemon.flatMap(pokemon => pokemon.types.map(type => type.type.name)))];
     const filtersElement = document.getElementById('filters');
+    filtersElement.innerHTML = ''; // Vider les filtres existants
+
+    const select = document.createElement('select');
+    select.id = 'type-filter';
+
     types.forEach(type => {
-        const button = document.createElement('button');
-        button.textContent = type;
-        button.addEventListener('click', () => filterByType(type));
-        filtersElement.appendChild(button);
+        const option = document.createElement('option');
+        option.value = type;
+        option.textContent = type === 'all' ? 'Tous les types' : type;
+        select.appendChild(option);
     });
+
+    select.addEventListener('change', (e) => filterByType(e.target.value));
+    filtersElement.appendChild(select);
 }
 
 function filterByType(type) {
@@ -191,5 +215,9 @@ function filterByType(type) {
     displayPokemon(filteredPokemon);
 }
 
+fetchPokemon();
+
 // Appelez cette fonction après avoir récupéré tous les Pokémon
 createTypeFilters();
+
+

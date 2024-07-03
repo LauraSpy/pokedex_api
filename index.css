@@ -49,6 +49,7 @@ body {
     padding: 2%;
     background: linear-gradient(#ad0505, #eb6b6b);
     border: 2px solid #FFCC00;
+    border-radius: 5px;
 }
 
 #go-to-page {
@@ -58,6 +59,7 @@ body {
     cursor: pointer;
     color: #FFCC00;
     text-transform: uppercase;
+    border-radius: 5px;
 }
 
 .recherche input::placeholder {
@@ -65,15 +67,17 @@ body {
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Chakra Petch", sans-serif;
+    font-size: 0.8em;
 }
 
 #pagination {
     margin-top: -1vw;
     margin-bottom: 2vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: fixed;
+    gap: 10px;
+    top: 6vw;
+    left: 6vw;
     gap: 10px;
 }
 
@@ -83,7 +87,22 @@ body {
     border-color: #ad0505;
 }
 
+#type-filter {
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid #FFCC00;
+    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    position: fixed;
+    top: 15vw;
+    left: 5vw;
+    font-family: "Chakra Petch", sans-serif;
+    font-size: 1em;
+}
 
+#type-filter:hover {
+    border-color: #eb6b6b;
+}
 
 /* CSS de la partie du Pokemon */
 
@@ -228,13 +247,62 @@ p.pokemon-hp strong {
 
 .pokemon-speed {
     position: absolute;
-    padding-top: 6vw;
+    padding-top: 8vw;
     padding-left: 6vw;
     color: #ad0505;
     font-family: 'Pokemon Solid', sans-serif;
     letter-spacing: 0.3em;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 800px) {
+    .recherche input {
+        width: 25vw;
+    }
+    
+}
 
+@media only screen and (max-width: 650px) {
+    #type-filter {
+        width: 2em;
+        top: 25vw;
+        font-size: 0.8em;
+    }
+    
+}
+
+@media only screen and (max-width: 600px) {
+    .pokemon-speed {
+        padding-top: 15vw;
+    }
+
+    .recherche input {
+        width: 35vw;
+    }
+    
+}
+
+@media only screen and (max-width: 380px) {
+
+    #pagination {
+        display: none;
+    }
+
+    #type-filter {
+        width: 2em;
+        top: 5vw;
+        font-size: 0.8em;
+    }
+
+    #pokemon-list {
+        margin-left: -15vw;
+    }
+
+    .recherche input {
+        width: 55vw;
+    }
+    
+
+    .pokemon-speed {
+        padding-top: 25vw;
+    }
 }
