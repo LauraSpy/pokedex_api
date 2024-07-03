@@ -60,6 +60,7 @@ body {
     color: #FFCC00;
     text-transform: uppercase;
     border-radius: 5px;
+    margin-top: 5%;
 }
 
 .recherche input::placeholder {

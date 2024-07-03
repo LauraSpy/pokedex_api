@@ -125,7 +125,7 @@ function setupPagination() {
 function updatePageInfo() {
     const pageInfo = document.getElementById('page-info');
     const totalPages = Math.ceil(allPokemon.length / pokemonPerPage);
-    pageInfo.textContent = `Page ${currentPage} sur ${totalPages}`;
+    pageInfo.textContent = `> ${currentPage} sur ${totalPages}`;
     document.getElementById('page-input').max = totalPages; // Mettre à jour le max de l'input
 }
 
