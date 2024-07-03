@@ -48,7 +48,7 @@ function displayPokemon(pokemonList) {
         
         pokemonElement.innerHTML = `
             <div class="pokemon-title">
-                <p class="pokemon-number">Niveau ${pokemon.id}</p>
+                <p class="pokemon-number">ID ${pokemon.id}</p>
                 <span class="pokemon-level">
                     <h2 class="pokemon-name">${pokemon.name}</h2>
                     <p class="pokemon-hp">pv <strong>${stats.hp}</strong></p>
@@ -130,6 +130,7 @@ function updatePageInfo() {
 }
 
 
+// IMPLEMENTATION DE LA RECHERCHE ET DU FILTRAGE
 document.getElementById('search').addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const filteredPokemon = allPokemon.filter(pokemon => 
@@ -141,54 +142,7 @@ document.getElementById('search').addEventListener('input', (e) => {
     displayPokemon(filteredPokemon);
 });
 
-function createTypeFilters() {
-    const types = ['all',...new Set(allPokemon.flatMap(pokemon => pokemon.types.map(type => type.type.name)))];
-    const filtersElement = document.getElementById('filters');
-    filtersElement.innerHTML = ''; // Vider les filtres existants
-
-    // Créer un élément select
-    const select = document.createElement('select');
-    select.id = 'type-filter';
-
-
-    // Ajouter les options
-    types.forEach(type => {
-        const option = document.createElement('option');
-        option.value = type;
-        option.textContent = type === 'all' ? 'Tous les types' : type;
-        select.appendChild(option);
-    });
-
-
-    // Ajouter un écouteur d'événements pour le changement de sélection
-    select.addEventListener('change', (e) => filterByType(e.target.value));
-
-    // Ajouter le select au conteneur de filtres
-    filtersElement.appendChild(select);
-}
-
-function filterByType(type) {
-    const filteredPokemon = type === 'all' 
-        ? allPokemon 
-        : allPokemon.filter(pokemon => pokemon.types.some(t => t.type.name === type));
-    currentPage = 1; // Réinitialiser à la première page lors d'un filtrage
-    displayPokemon(filteredPokemon);
-}
-
-// IMPLEMENTATION DE LA RECHERCHE
-
-document.getElementById('search').addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    const filteredPokemon = allPokemon.filter(pokemon => 
-        pokemon.name.toLowerCase().includes(searchTerm) || 
-        pokemon.id.toString().includes(searchTerm)
-    );
-    displayPokemon(filteredPokemon);
-});
-
 // IMPLEMENTATION DES FILTRES
-
-
 function createTypeFilters() {
     const types = ['all', ...new Set(allPokemon.flatMap(pokemon => pokemon.types.map(type => type.type.name)))];
     const filtersElement = document.getElementById('filters');
@@ -209,9 +163,12 @@ function createTypeFilters() {
 }
 
 function filterByType(type) {
-    const filteredPokemon = allPokemon.filter(pokemon => 
-        pokemon.types.some(t => t.type.name === type)
-    );
+    const filteredPokemon = type === 'all' 
+        ? allPokemon 
+        : allPokemon.filter(pokemon => 
+            pokemon.types.some(t => t.type.name.toLowerCase() === type.toLowerCase())
+          );
+    currentPage = 1; // Réinitialiser à la première page lors d'un filtrage
     displayPokemon(filteredPokemon);
 }
 
