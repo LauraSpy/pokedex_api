@@ -18,7 +18,7 @@ async function fetchPokemon() {
         setupPagination();
         createTypeFilters(); // Ajoutez cette ligne
     } catch (error) {
-        console.error('Erreur lors de la récupération des données:', error);
+        console.error('Error, no data found:', error);
     }
 }
 
@@ -60,8 +60,8 @@ function displayPokemon(pokemonList) {
             <div class="pokemon-info">
                 <div class="pokemon-types">
                     <span>Type : ${pokemon.types.map(type => type.type.name).join(', ')}</span>
-                    <span class="pokemon-size">Taille: ${heightInM.toFixed(2)} m</span>
-                    <span class="pokemon-weight">Poids: ${weightInKg.toFixed(1)} kg</span>
+                    <span class="pokemon-size">Size: ${heightInM.toFixed(2)} m</span>
+                    <span class="pokemon-weight">Weight: ${weightInKg.toFixed(1)} kg</span>
                 </div>
                 <div class="pokemon-stats">
                     <div class="pokemon-stats-attack">
@@ -108,7 +108,7 @@ function setupPagination() {
             currentPage = pageNumber;
             displayPokemon(allPokemon);
         } else {
-            alert("Numéro de page invalide !");
+            alert("Invalid page number !");
         }
     });
 
@@ -125,7 +125,7 @@ function setupPagination() {
 function updatePageInfo() {
     const pageInfo = document.getElementById('page-info');
     const totalPages = Math.ceil(allPokemon.length / pokemonPerPage);
-    pageInfo.textContent = `> ${currentPage} sur ${totalPages}`;
+    pageInfo.textContent = `> ${currentPage} / ${totalPages}`;
     document.getElementById('page-input').max = totalPages; // Mettre à jour le max de l'input
 }
 
@@ -154,7 +154,7 @@ function createTypeFilters() {
     types.forEach(type => {
         const option = document.createElement('option');
         option.value = type;
-        option.textContent = type === 'all' ? 'Tous les types' : type;
+        option.textContent = type === 'all' ? 'All types' : type;
         select.appendChild(option);
     });
 
