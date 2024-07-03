@@ -40,7 +40,6 @@ body {
 #pokedex h1 {
     /* Header styles */
     text-align: center;
-    margin-bottom: -1.5vw;
     font-size: 5vmax;
     color: #FFCC00;
     font-family: 'Pokemon Solid', sans-serif;
@@ -48,6 +47,8 @@ body {
     -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: #0075BE;
     animation: myAnim 2s ease 0s 1 normal forwards;
+    position: relative;
+    text-shadow: -5px 5px 5px rgba(0, 57, 93, 0.9);
 }
 
 /* Animation for header */
@@ -112,15 +113,17 @@ body {
 
 #go-to-page {
     /* Go to page button styles */
-    padding: 5%;
+    padding: 0 5%;
     background: linear-gradient(#ad0505, #eb6b6b);
     border: 2px solid #FFCC00;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     cursor: pointer;
     color: #FFCC00;
+    font-family: "Chakra Petch", sans-serif;
     text-transform: uppercase;
     border-radius: 5px;
     margin-top: 5%;
+    font-size: 1.2em;
 }
 
 .recherche input::placeholder {
@@ -165,6 +168,7 @@ body {
     left: 5vw;
     font-family: "Chakra Petch", sans-serif;
     font-size: 1em;
+    font-weight: 500;
 }
 
 #type-filter:hover {
@@ -199,15 +203,16 @@ body {
     max-width: 300px; /* Limite la taille maximale pour les grands écrans */
     height: 320px;
     border: 6px inset #FFCC00;
-    background-image: url(./images/21353.jpg);
+    background-image: url(./images/bg-card-img.jpg);
     border-radius: 8px;
     padding: 10px;
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transition: 0.4s ease-in-out;
+    z-index: 1;
 }
 
-.pokemon-card:hover {
+.pokemon-card:hover, .pokemon-card::after {
     transition: 0.4s ease-in-out;
     transform: scale3d(1.2, 1.2, 1.2);
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
@@ -264,6 +269,7 @@ p.pokemon-number {
     float: left;
     font-size: 0.9em;
     position: absolute;
+    z-index: 1;
     margin-top: -1vw;
     margin-left: -1vw;
 }
