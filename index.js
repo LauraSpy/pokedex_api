@@ -6,6 +6,7 @@ let allPokemon = [];
 let currentPage = 1;
 const pokemonPerPage = 21; // Nombre de Pokémon par page pour avoir les 3 évolutions possibles
 
+// Fonction pour récupérer les données des Pokémons depuis l'API
 async function fetchPokemon() {
     try {
         const response = await fetch(`${API_URL}?limit=151`);
@@ -16,12 +17,13 @@ async function fetchPokemon() {
         }));
         displayPokemon(allPokemon);
         setupPagination();
-        createTypeFilters(); // Ajoutez cette ligne
+        createTypeFilters(); 
     } catch (error) {
         console.error('Error, no data found:', error);
     }
 }
 
+// Fonction pour afficher les Pokémons sur la page
 function displayPokemon(pokemonList) {
     const pokemonListElement = document.getElementById('pokemon-list');
     pokemonListElement.innerHTML = '';
