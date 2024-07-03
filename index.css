@@ -41,6 +41,53 @@ body {
     letter-spacing: 0.2em;
     -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: #0075BE;
+    animation: myAnim 2s ease 0s 1 normal forwards;
+}
+
+@keyframes myAnim {
+	0% {
+		animation-timing-function: ease-in;
+		opacity: 1;
+		transform: translateY(-45px);
+	}
+
+	24% {
+		opacity: 1;
+	}
+
+	40% {
+		animation-timing-function: ease-in;
+		transform: translateY(-24px);
+	}
+
+	65% {
+		animation-timing-function: ease-in;
+		transform: translateY(-12px);
+	}
+
+	82% {
+		animation-timing-function: ease-in;
+		transform: translateY(-6px);
+	}
+
+	93% {
+		animation-timing-function: ease-in;
+		transform: translateY(-4px);
+	}
+
+	25%,
+	55%,
+	75%,
+	87% {
+		animation-timing-function: ease-out;
+		transform: translateY(0px);
+	}
+
+	100% {
+		animation-timing-function: ease-out;
+		opacity: 1;
+		transform: translateY(0px);
+	}
 }
 
 .recherche input {
@@ -50,12 +97,14 @@ body {
     background: linear-gradient(#ad0505, #eb6b6b);
     border: 2px solid #FFCC00;
     border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
 #go-to-page {
     padding: 5%;
     background: linear-gradient(#ad0505, #eb6b6b);
     border: 2px solid #FFCC00;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     cursor: pointer;
     color: #FFCC00;
     text-transform: uppercase;
@@ -136,7 +185,15 @@ body {
     border-radius: 8px;
     padding: 10px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: 0.4s ease-in-out;
+}
+
+.pokemon-card:hover {
+    transition: 0.4s ease-in-out;
+    transform: scale3d(1.2, 1.2, 1.2);
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    z-index: 5;
 }
 
 .pokemon-card h2 {
