@@ -1,6 +1,8 @@
-# Pokédex API README
+# Pokédex README
 
 Welcome to the Pokédex API, a web application that allows you to browse and filter Pokémon data. This README will guide you through the various features and options available on the site.
+
+Note : I am using de PokéApi here - https://pokeapi.co. 
 
 ## Filtering Options
 
