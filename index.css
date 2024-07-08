@@ -266,7 +266,7 @@ button#prev-page, button#next-page {
 
 #prev-page, #next-page {
     position: fixed;
-    top: 30vw;
+    top: 40vw;
 }
 
 #prev-page {

@@ -179,7 +179,7 @@ function createTypeFilters() {
     // Ajouter le filtre de vitesse
     const speedFilter = document.createElement('div');
     speedFilter.innerHTML = `
-        <label for="speed-filter"> - Minimum speed :</label>
+        <label for="speed-filter">Minimum speed :</label>
         <input type="number" id="speed-filter" min="0" max="200" value="0">
     `;
     filtersElement.appendChild(speedFilter);
@@ -200,34 +200,42 @@ function createTypeFilters() {
 
 // Fonction pour afficher/cacher les filtres
 function toggleFilters() {
+    // Sélectionne les éléments du DOM nécessaires
     const checkboxContainer = document.querySelector('.checkbox-container');
     const speedFilter = document.querySelector('#speed-filter').parentNode;
     const applyButton = document.querySelector('#filters button:last-child');
     
+    // Bascule la classe 'show' pour chaque élément, ce qui les affiche ou les cache
     checkboxContainer.classList.toggle('show');
     speedFilter.classList.toggle('show');
     applyButton.classList.toggle('show');
 }
 
+// Fonction pour filtrer les Pokémon par plusieurs types
 function filterByMultipleTypes() {
+    // Récupère tous les types cochés
     const checkedTypes = Array.from(document.querySelectorAll('#filters input:checked'))
         .map(checkbox => checkbox.value);
 
+    // Filtre les Pokémon en fonction des types cochés
     const filteredPokemon = checkedTypes.includes('all') || checkedTypes.length === 0
-        ? allPokemon
+        ? allPokemon // Si 'all' est coché ou aucun type n'est sélectionné, retourne tous les Pokémon
         : allPokemon.filter(pokemon => 
             pokemon.types.some(t => checkedTypes.includes(t.type.name.toLowerCase()))
           );
 
-    currentPage = 1; // Réinitialiser à la première page lors d'un filtrage
-    displayPokemon(filteredPokemon);
+    currentPage = 1; // Réinitialise à la première page lors d'un filtrage
+    displayPokemon(filteredPokemon); // Affiche les Pokémon filtrés
 }
 
+// Fonction pour appliquer tous les filtres (types et vitesse)
 function applyFilters() {
+    // Récupère les types cochés et la vitesse minimale
     const checkedTypes = Array.from(document.querySelectorAll('#filters input[type="checkbox"]:checked'))
         .map(checkbox => checkbox.value);
     const minSpeed = parseInt(document.getElementById('speed-filter').value) || 0;
 
+    // Filtre les Pokémon en fonction des types et de la vitesse
     const filteredPokemon = allPokemon.filter(pokemon => {
         const typeMatch = checkedTypes.includes('all') || 
             pokemon.types.some(t => checkedTypes.includes(t.type.name.toLowerCase()));
@@ -235,18 +243,20 @@ function applyFilters() {
         return typeMatch && speedMatch;
     });
 
-    currentPage = 1; // Réinitialiser à la première page lors d'un filtrage
-    displayPokemon(filteredPokemon);
+    currentPage = 1; // Réinitialise à la première page lors d'un filtrage
+    displayPokemon(filteredPokemon); // Affiche les Pokémon filtrés
 }
 
+// Fonction pour filtrer les Pokémon par un seul type
 function filterByType(type) {
+    // Filtre les Pokémon en fonction du type sélectionné
     const filteredPokemon = type === 'all' 
-        ? allPokemon 
+        ? allPokemon // Si 'all' est sélectionné, retourne tous les Pokémon
         : allPokemon.filter(pokemon => 
             pokemon.types.some(t => t.type.name.toLowerCase() === type.toLowerCase())
           );
-    currentPage = 1; // Réinitialiser à la première page lors d'un filtrage
-    displayPokemon(filteredPokemon);
+    currentPage = 1; // Réinitialise à la première page lors d'un filtrage
+    displayPokemon(filteredPokemon); // Affiche les Pokémon filtrés
 }
 
 fetchPokemon();
