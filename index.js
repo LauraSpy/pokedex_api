@@ -124,6 +124,7 @@ function setupPagination() {
     observer.observe(document.getElementById('page-info'), { childList: true });
 }
 
+//met à jour les éléments d'affichage de la page
 function updatePageInfo() {
     const pageInfo = document.getElementById('page-info');
     const totalPages = Math.ceil(allPokemon.length / pokemonPerPage);
