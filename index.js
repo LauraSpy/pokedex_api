@@ -179,20 +179,20 @@ function createTypeFilters() {
     // Ajouter le filtre de vitesse
     const speedFilter = document.createElement('div');
     speedFilter.innerHTML = `
-        <label for="speed-filter"> - Vitesse minimum :</label>
+        <label for="speed-filter"> - Minimum speed :</label>
         <input type="number" id="speed-filter" min="0" max="200" value="0">
     `;
     filtersElement.appendChild(speedFilter);
 
     // Ajouter le bouton de validation
     const applyButton = document.createElement('button');
-    applyButton.textContent = 'Appliquer les filtres';
+    applyButton.textContent = 'Apply filters';
     applyButton.addEventListener('click', applyFilters);
     filtersElement.appendChild(applyButton);
 
     // Ajouter le bouton pour afficher/cacher les filtres sur mobile
     const toggleButton = document.createElement('button');
-    toggleButton.textContent = 'Filtres';
+    toggleButton.textContent = 'Filters';
     toggleButton.id = 'toggle-filters';
     toggleButton.addEventListener('click', toggleFilters);
     filtersElement.insertBefore(toggleButton, filtersElement.firstChild);

@@ -181,6 +181,10 @@ body {
     border-color: #ad0505;
 }
 
+#filters input[type="number"] {
+    margin-left: 5px;
+}
+
 #filters button {
     margin-top: 10px;
     padding: 5px;
