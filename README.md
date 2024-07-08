@@ -7,7 +7,7 @@ Note : I am using de PokéApi here - https://pokeapi.co.
 ## Filtering Options
 
 ### Type Filters
-The type filters are located in the dropdown menu at the top of the page. You can select one or multiple types to filter the Pokémon list. For example, if you select "Fire" and "Water", the list will only show Pokémon that have both Fire and Water types.
+The type filters are located in the dropdown menu at the top of the page. You can select one type to filter the Pokémon list. For example, if you select "Fire", the list will only show Pokémon that Fire types.
 
 ### Search Bar
 The search bar allows you to filter Pokémon by various criteria. You can search by:
