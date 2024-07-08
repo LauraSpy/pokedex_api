@@ -17,9 +17,9 @@ async function fetchPokemon() {
         }));
         displayPokemon(allPokemon);
         setupPagination();
-        createTypeFilters(); 
+        createTypeFilters(); // Ajoutez cette ligne
     } catch (error) {
-        console.error('Error, no data found:', error);
+        console.error('Erreur lors de la récupération des données:', error);
     }
 }
 
@@ -150,18 +150,93 @@ function createTypeFilters() {
     const filtersElement = document.getElementById('filters');
     filtersElement.innerHTML = ''; // Vider les filtres existants
 
-    const select = document.createElement('select');
-    select.id = 'type-filter';
+    // Créer un conteneur pour les checkboxes
+    const checkboxContainer = document.createElement('div');
+    checkboxContainer.className = 'checkbox-container';
 
+    // Créer les checkboxes pour les types
     types.forEach(type => {
-        const option = document.createElement('option');
-        option.value = type;
-        option.textContent = type === 'all' ? 'All types' : type;
-        select.appendChild(option);
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `type-${type}`;
+        checkbox.value = type;
+        checkbox.checked = type === 'all'; // Cocher "all" par défaut
+
+        const label = document.createElement('label');
+        label.htmlFor = `type-${type}`;
+        label.textContent = type === 'all' ? 'All types' : type;
+
+        const wrapper = document.createElement('div');
+        wrapper.appendChild(checkbox);
+        wrapper.appendChild(label);
+
+        checkboxContainer.appendChild(wrapper);
     });
 
-    select.addEventListener('change', (e) => filterByType(e.target.value));
-    filtersElement.appendChild(select);
+    // Ajouter le conteneur de checkboxes au filtre
+    filtersElement.appendChild(checkboxContainer);
+
+    // Ajouter le filtre de vitesse
+    const speedFilter = document.createElement('div');
+    speedFilter.innerHTML = `
+        <label for="speed-filter"> - Vitesse minimum :</label>
+        <input type="number" id="speed-filter" min="0" max="200" value="0">
+    `;
+    filtersElement.appendChild(speedFilter);
+
+    // Ajouter le bouton de validation
+    const applyButton = document.createElement('button');
+    applyButton.textContent = 'Appliquer les filtres';
+    applyButton.addEventListener('click', applyFilters);
+    filtersElement.appendChild(applyButton);
+
+    // Ajouter le bouton pour afficher/cacher les filtres sur mobile
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = 'Filtres';
+    toggleButton.id = 'toggle-filters';
+    toggleButton.addEventListener('click', toggleFilters);
+    filtersElement.insertBefore(toggleButton, filtersElement.firstChild);
+}
+
+// Fonction pour afficher/cacher les filtres
+function toggleFilters() {
+    const checkboxContainer = document.querySelector('.checkbox-container');
+    const speedFilter = document.querySelector('#speed-filter').parentNode;
+    const applyButton = document.querySelector('#filters button:last-child');
+    
+    checkboxContainer.classList.toggle('show');
+    speedFilter.classList.toggle('show');
+    applyButton.classList.toggle('show');
+}
+
+function filterByMultipleTypes() {
+    const checkedTypes = Array.from(document.querySelectorAll('#filters input:checked'))
+        .map(checkbox => checkbox.value);
+
+    const filteredPokemon = checkedTypes.includes('all') || checkedTypes.length === 0
+        ? allPokemon
+        : allPokemon.filter(pokemon => 
+            pokemon.types.some(t => checkedTypes.includes(t.type.name.toLowerCase()))
+          );
+
+    currentPage = 1; // Réinitialiser à la première page lors d'un filtrage
+    displayPokemon(filteredPokemon);
+}
+
+function applyFilters() {
+    const checkedTypes = Array.from(document.querySelectorAll('#filters input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.value);
+    const minSpeed = parseInt(document.getElementById('speed-filter').value) || 0;
+
+    const filteredPokemon = allPokemon.filter(pokemon => {
+        const typeMatch = checkedTypes.includes('all') || 
+            pokemon.types.some(t => checkedTypes.includes(t.type.name.toLowerCase()));
+        const speedMatch = pokemon.stats.find(stat => stat.stat.name === 'speed').base_stat >= minSpeed;
+        return typeMatch && speedMatch;
+    });
+
+    currentPage = 1; // Réinitialiser à la première page lors d'un filtrage
+    displayPokemon(filteredPokemon);
 }
 
 function filterByType(type) {

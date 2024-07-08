@@ -156,23 +156,47 @@ body {
 }
 
 /* Type Filter Styles */
-#type-filter {
-    /* Type filter button styles */
+#filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    max-width: 60vw;
+}
+
+#filters div {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#toggle-filters {
+    display: none;
+}
+
+#filters input[type="checkbox"], #filters input[type="number"] {
+    margin-right: 5px;
+    width: 4em;
+    background-color: rgba(0,0,0,0);
+    border-color: #ad0505;
+}
+
+#filters button {
+    margin-top: 10px;
     padding: 5px;
     border-radius: 5px;
     border: 2px solid #FFCC00;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.5);
     cursor: pointer;
-    position: fixed;
-    top: 15vw;
-    left: 5vw;
     font-family: "Chakra Petch", sans-serif;
     font-size: 1em;
     font-weight: 500;
+    color: #FFCC00;
 }
 
-#type-filter:hover {
+#filters button:hover {
     border-color: #eb6b6b;
+    color: #eb6b6b
 }
 
 
@@ -386,5 +410,35 @@ p.pokemon-hp strong {
 
     .pokemon-speed {
         padding-top: 25vw;
+    }
+
+      /* Cacher tous les éléments de filtrage par défaut */
+    .checkbox-container, 
+    #filters > div:not(:first-child),
+    #filters > button:not(#toggle-filters) {
+        display: none;
+    }
+
+    /* Afficher les éléments lorsque la classe .show est présente */
+    .checkbox-container.show, 
+    #filters > div.show, 
+    #filters > button.show,
+    .checkbox-container.show > div,
+    .checkbox-container.show > div > *,
+    #filters > div.show > *,
+    #filters > button.show > * {
+        display: flex !important;
+        align-items: flex-start;
+    }
+
+    /* Toujours afficher le bouton de basculement des filtres */
+    #toggle-filters {
+        display: block !important;
+        margin-bottom: 10px;
+    }
+
+    /* Afficher les checkboxes en colonne lorsqu'ils sont visibles */
+    .checkbox-container.show > div {
+        margin-bottom: 5px;
     }
 }
